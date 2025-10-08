@@ -2,7 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -30,7 +30,7 @@ export class News {
   @Column()
   type_id: number;
 
-  @OneToOne(() => NewsTypes)
+  @ManyToOne(() => NewsTypes, { eager: false })
   @JoinColumn({ name: 'type_id' })
   type: NewsTypes;
 }

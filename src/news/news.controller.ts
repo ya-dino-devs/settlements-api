@@ -3,7 +3,10 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -25,7 +28,7 @@ export class NewsController {
     return this.newsService.create(createNewsDto);
   }
 
-  // @Auth(AuthType.None)
+  @Auth(AuthType.None)
   @Get()
   findAll() {
     return this.newsService.findAll();
@@ -33,19 +36,23 @@ export class NewsController {
 
   @Auth(AuthType.None)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.newsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.newsService.findOne(id);
   }
 
   @Roles(Role.Admin)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNewsDto: UpdateNewsDto) {
-    return this.newsService.update(+id, updateNewsDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateNewsDto: UpdateNewsDto,
+  ) {
+    return this.newsService.update(id, updateNewsDto);
   }
 
   @Roles(Role.Admin)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.newsService.remove(+id);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.newsService.remove(id);
   }
 }

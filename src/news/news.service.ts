@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { News } from './entities/news.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateNewsDto } from './dto/create-news.dto';
+import { UpdateNewsDto } from './dto/update-news.dto';
 
 @Injectable()
 export class NewsService {
@@ -10,34 +11,45 @@ export class NewsService {
     @InjectRepository(News) private newsRepository: Repository<News>,
   ) {}
 
-  create(createNewsDto: CreateNewsDto): Promise<News> {
-    return this.newsRepository.save({
-      ...new News(),
-      ...createNewsDto,
-    });
+  async create(createNewsDto: CreateNewsDto): Promise<News> {
+    const news = this.newsRepository.create(createNewsDto);
+    return this.newsRepository.save(news);
   }
 
-  findAll() {
+  findAll(): Promise<News[]> {
     return this.newsRepository.find({
       relations: {
         type: true,
       },
+      order: {
+        created_at: 'DESC',
+      },
     });
   }
 
-  findOne(id: number) {
-    return this.newsRepository.findOneBy({ id });
+  async findOne(id: number): Promise<News> {
+    const news = await this.newsRepository.findOne({
+      where: { id },
+      relations: {
+        type: true,
+      },
+    });
+
+    if (!news) {
+      throw new NotFoundException(`News with ID ${id} not found`);
+    }
+
+    return news;
   }
 
-  async update(
-    id: number,
-    updateNewsDto: Partial<CreateNewsDto>,
-  ): Promise<News | null> {
-    const result = await this.newsRepository.update({ id }, updateNewsDto);
-    return result.affected ? this.newsRepository.findOneBy({ id }) : null;
+  async update(id: number, updateNewsDto: UpdateNewsDto): Promise<News> {
+    const news = await this.findOne(id);
+    Object.assign(news, updateNewsDto);
+    return this.newsRepository.save(news);
   }
 
-  remove(id: number) {
-    return this.newsRepository.delete({ id });
+  async remove(id: number): Promise<void> {
+    const news = await this.findOne(id);
+    await this.newsRepository.remove(news);
   }
 }
