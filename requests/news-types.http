@@ -6,6 +6,7 @@ Accept: application/json
 POST {{host}}/news-types
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "name": "default2",

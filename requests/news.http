@@ -1,17 +1,18 @@
 ### GET request with environment variables
 GET {{host}}/news
 Accept: application/json
+Authorization: Bearer {{token}}
 
 ### Post requset
 POST {{host}}/news
 Accept: application/json
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiamtyYW1vcmV2eEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2ODIxMDc1MjUsImV4cCI6MTY4MjExMTEyNSwiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.49X7gQjBVIBiGR5omHYi-uk_wKxc1Q_l8UdGKPpfvx0
+Authorization: Bearer {{token}}
 
 {
-  "title": "Biba news",
+  "title": "Biba news 2",
   "text": "here is some long text",
-  "type_id": 8
+  "type_id": 1
 }
 
 ### Update requset
@@ -26,4 +27,4 @@ Content-Type: application/json
 ### Delete request
 DELETE {{host}}/news/5
 Accept: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoiamtyYW1vcmV2eEBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2ODIxMDc1MjUsImV4cCI6MTY4MjExMTEyNSwiYXVkIjoibG9jYWxob3N0OjMwMDAiLCJpc3MiOiJsb2NhbGhvc3Q6MzAwMCJ9.49X7gQjBVIBiGR5omHYi-uk_wKxc1Q_l8UdGKPpfvx0
+Authorization: Bearer {{token}}

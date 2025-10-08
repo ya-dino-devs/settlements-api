@@ -13,9 +13,11 @@ export default new DataSource({
   username: process.env.DATABASE_USERNAME,
   password: process.env.DATABASE_PASSWORD,
   database: process.env.DATABASE_NAME,
+  entities: ['./src/**/*.entity{.ts,.js}'],
   migrationsRun: true,
   migrationsTableName: 'migrations_typeorm',
-  synchronize: false,
+  synchronize:
+    process.env.NODE_ENV === 'development' && !process.env.DISABLE_SYNC,
   dropSchema: false,
   migrations: ['./src/migrations/*.{ts,js}'],
 });

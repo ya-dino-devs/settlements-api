@@ -18,6 +18,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
+  "name": "Mun Mun",
   "email": "lolkek@mail.com",
   "password": "lolkek123lol"
 }
@@ -32,6 +33,8 @@ Content-Type: application/json
   "password": "lolkek123lol"
 }
 
+> {% client.global.set("token", response.body.accessToken); %}
+
 ### Post signin(Admin)
 POST {{host}}/authentication/sign-in
 Accept: application/json
@@ -42,13 +45,17 @@ Content-Type: application/json
   "password": "lolkek123lol"
 }
 
+> {%
+    client.global.set("token", response.body.accessToken);
+%}
+
 ### Post refresh
 POST {{host}}/authentication/refresh-tokens
 Accept: application/json
 Content-Type: application/json
 
 {
-  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInJlZnJlc2hUb2tlbklkIjoiZjNlYzE3OGUtYmViOC00ZTAxLTlkOGYtYzgzMjViNTc4ZGY5IiwiaWF0IjoxNjgyMTAzMDgyLCJleHAiOjE2ODIxODk0ODIsImF1ZCI6ImxvY2FsaG9zdDozMDAwIiwiaXNzIjoibG9jYWxob3N0OjMwMDAifQ.7SfDGPi9tsW52-Kcnb8vRCuJHSak-k1yJ_fBq2xVmAA"
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJlZnJlc2hUb2tlbklkIjoiNzYzZTg5YzUtYWY3OS00NDQ0LWI0OTAtZWZkODc4NjIzY2ZmIiwiaWF0IjoxNzU5OTQ4NTU2LCJleHAiOjE3NTk5NTI1NTYsImF1ZCI6ImxvbGtlayIsImlzcyI6ImhlbGxvIn0.P0aEL2DRUDwM9TvPer6PAy_Zi2h6oaZQkR9-epY8dAc"
 }
 
 ### Post signin wrong
