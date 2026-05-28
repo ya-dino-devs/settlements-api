@@ -11,7 +11,7 @@ export class UsersService {
     @InjectRepository(Users) private userRepository: Repository<Users>,
   ) {}
 
-  create(createUserDto: CreateUserDto) {
+  create(_createUserDto: CreateUserDto) {
     return 'This action adds a new user';
   }
 
@@ -23,7 +23,7 @@ export class UsersService {
     return this.userRepository.findOneBy({ id });
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  update(id: number, _updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
   }
 

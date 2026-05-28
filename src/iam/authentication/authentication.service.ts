@@ -40,7 +40,7 @@ export class AuthenticationService {
       await this.userRepository.save(user);
     } catch (e) {
       const pgUniqueViolationErrorCode = '23505';
-      if (e.code === pgUniqueViolationErrorCode) {
+      if ((e as any).code === pgUniqueViolationErrorCode) {
         throw new ConflictException();
       }
       throw e;
@@ -112,7 +112,7 @@ export class AuthenticationService {
       }
       return this.generateTokens(user);
     } catch (e) {
-      if (e.instanceOf === InvalidateRefreshTokenError) {
+      if (e instanceof InvalidateRefreshTokenError) {
         throw new UnauthorizedException('Access Denied');
       }
       throw new UnauthorizedException();

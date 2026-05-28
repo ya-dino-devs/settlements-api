@@ -23,7 +23,7 @@ export class RefreshTokenIdsStorage
     });
   }
 
-  onApplicationShutdown(signal?: string): any {
+  onApplicationShutdown(_signal?: string): any {
     this.redisClient.quit();
   }
 

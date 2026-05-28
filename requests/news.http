@@ -16,12 +16,13 @@ Authorization: Bearer {{token}}
 }
 
 ### Update requset
-PATCH {{host}}/news/7
+PATCH {{host}}/news/6
 Accept: application/json
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "name": "default biba"
+  "title": "default biba"
 }
 
 ### Delete request

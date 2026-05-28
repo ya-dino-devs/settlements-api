@@ -31,7 +31,7 @@ export class AccessTokenGuard implements CanActivate {
         token,
         this.jwtConfig,
       );
-    } catch (e) {
+    } catch {
       throw new UnauthorizedException('Wrong token');
     }
 
@@ -39,7 +39,7 @@ export class AccessTokenGuard implements CanActivate {
   }
 
   extractTokenFromHeader(request: Request): string | undefined {
-    const [_, token] = request.headers.authorization?.split(' ') ?? [];
+    const [, token] = request.headers.authorization?.split(' ') ?? [];
     return token;
   }
 }
